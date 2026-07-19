@@ -40,3 +40,34 @@ def parse_domain(line):
     if not any(c.isalpha() for c in tld):  # reject IP-like / numeric TLDs
         return None
     return s
+
+
+Source = namedtuple("Source", ["kind", "target", "subpath", "is_whitelist"])
+
+
+def _repo_source(args, is_whitelist):
+    target = args[0]
+    subpath = args[1] if len(args) > 1 else None
+    if subpath and not subpath.endswith("/"):
+        subpath += "/"
+    return Source("repo", target, subpath, is_whitelist)
+
+
+def parse_sources(text):
+    """Parse sources.txt content into a list of Source directives."""
+    sources = []
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        tokens = line.split()
+        keyword = tokens[0].lower()
+        if keyword == "repo":
+            sources.append(_repo_source(tokens[1:], is_whitelist=False))
+        elif keyword == "whitelist-repo":
+            sources.append(_repo_source(tokens[1:], is_whitelist=True))
+        elif keyword == "whitelist":
+            sources.append(Source("url", tokens[1], None, True))
+        else:
+            sources.append(Source("url", tokens[0], None, False))
+    return sources
