@@ -71,3 +71,30 @@ def parse_sources(text):
         else:
             sources.append(Source("url", tokens[0], None, False))
     return sources
+
+
+_EXCLUDE_SUBSTRINGS = ("whitelist", "allow")
+_EXCLUDE_PREFIXES = ("readme", "changelog", "requirements", "cron_output")
+
+
+def select_repo_files(paths, subpath=None):
+    """Filter repo blob paths to includable .txt list files."""
+    selected = []
+    for path in paths:
+        if not path.endswith(".txt"):
+            continue
+        if subpath:
+            if not path.startswith(subpath):
+                continue
+            rel = path[len(subpath):]
+        else:
+            rel = path
+        if "/" in rel:
+            continue
+        name = rel.lower()
+        if any(sub in name for sub in _EXCLUDE_SUBSTRINGS):
+            continue
+        if any(name.startswith(p) for p in _EXCLUDE_PREFIXES):
+            continue
+        selected.append(path)
+    return selected
