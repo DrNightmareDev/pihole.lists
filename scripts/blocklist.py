@@ -98,3 +98,28 @@ def select_repo_files(paths, subpath=None):
             continue
         selected.append(path)
     return selected
+
+
+def pack_domains(domains, max_bytes):
+    """Greedily pack domains into chunks that serialize to <= max_bytes."""
+    chunks = []
+    current = []
+    size = 0
+    for domain in domains:
+        line_size = len(domain.encode("utf-8")) + 1  # + newline
+        if current and size + line_size > max_bytes:
+            chunks.append(current)
+            current = []
+            size = 0
+        current.append(domain)
+        size += line_size
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def output_filenames(count):
+    """Output file names: one bare file, or zero-padded numbered files."""
+    if count <= 1:
+        return ["blocklist.txt"]
+    return [f"blocklist-{i:02d}.txt" for i in range(1, count + 1)]
