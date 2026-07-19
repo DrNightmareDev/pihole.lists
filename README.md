@@ -21,4 +21,34 @@ Then run the **Update blocklists** workflow (Actions tab → Run workflow), or w
 for the weekly run.
 
 <!-- BLOCKLIST:START -->
+
+## Combined blocklist
+
+- **Total domains:** 4,832,912
+- **Last updated:** 2026-07-19 09:17:21 UTC
+- **Output files:** 3
+
+### Subscribe in Pi-hole
+
+Add these URLs as adlists (Settings → Lists):
+
+- `https://raw.githubusercontent.com/DrNightmareDev/pihole.lists/main/blocklist-01.txt`
+- `https://raw.githubusercontent.com/DrNightmareDev/pihole.lists/main/blocklist-02.txt`
+- `https://raw.githubusercontent.com/DrNightmareDev/pihole.lists/main/blocklist-03.txt`
+
+### Sources
+
+```
+# Blocklist sources — one directive per line. '#' begins a comment.
+#
+#   <url>                         fetch a single blocklist
+#   repo <owner/name> [path/]     fetch every .txt in a repo (root-level by default)
+#   whitelist <url>               allowlist, subtracted from the output
+#   whitelist-repo <owner/name> [path/]
+#
+# See docs/superpowers/specs/2026-07-19-combined-blocklist-action-design.md
+
+repo blocklistproject/Lists
+```
+
 <!-- BLOCKLIST:END -->
