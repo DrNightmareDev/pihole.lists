@@ -24,8 +24,8 @@ for the weekly run.
 
 ## Combined blocklist
 
-- **Total domains:** 4,832,912
-- **Last updated:** 2026-07-19 09:17:21 UTC
+- **Total domains:** 4,835,687
+- **Last updated:** 2026-07-19 09:33:47 UTC
 - **Output files:** 3
 
 ### Subscribe in Pi-hole
@@ -49,6 +49,10 @@ Add these URLs as adlists (Settings → Lists):
 # See docs/superpowers/specs/2026-07-19-combined-blocklist-action-design.md
 
 repo blocklistproject/Lists
+# curated ads / coinmining / facebook, low false-positive
+repo anudeepND/blacklist
+# SmartTV / IoT / mobile tracking lists
+repo Perflyst/PiHoleBlocklist
 ```
 
 <!-- BLOCKLIST:END -->
