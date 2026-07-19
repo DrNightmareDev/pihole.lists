@@ -123,3 +123,39 @@ def output_filenames(count):
     if count <= 1:
         return ["blocklist.txt"]
     return [f"blocklist-{i:02d}.txt" for i in range(1, count + 1)]
+
+
+SECTION_START = "<!-- BLOCKLIST:START -->"
+SECTION_END = "<!-- BLOCKLIST:END -->"
+
+
+def render_section(domain_count, filenames, sources_text, raw_base_url, timestamp):
+    """Render the managed README block."""
+    lines = [
+        SECTION_START,
+        "",
+        "## Combined blocklist",
+        "",
+        f"- **Total domains:** {domain_count:,}",
+        f"- **Last updated:** {timestamp}",
+        f"- **Output files:** {len(filenames)}",
+        "",
+        "### Subscribe in Pi-hole",
+        "",
+        "Add these URLs as adlists (Settings → Lists):",
+        "",
+    ]
+    lines += [f"- `{raw_base_url}/{name}`" for name in filenames]
+    lines += ["", "### Sources", "", "```", sources_text.strip(), "```", "", SECTION_END]
+    return "\n".join(lines)
+
+
+def update_readme(existing, section):
+    """Replace the managed block between markers, or append it if absent."""
+    if SECTION_START in existing and SECTION_END in existing:
+        before = existing.split(SECTION_START)[0]
+        after = existing.split(SECTION_END, 1)[1]
+        return before + section + after
+    if existing and not existing.endswith("\n"):
+        existing += "\n"
+    return existing + "\n" + section + "\n"
