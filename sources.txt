@@ -8,3 +8,7 @@
 # See docs/superpowers/specs/2026-07-19-combined-blocklist-action-design.md
 
 repo blocklistproject/Lists
+# curated ads / coinmining / facebook, low false-positive
+repo anudeepND/blacklist
+# SmartTV / IoT / mobile tracking lists
+repo Perflyst/PiHoleBlocklist
