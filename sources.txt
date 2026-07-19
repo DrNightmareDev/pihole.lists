@@ -1,0 +1,10 @@
+# Blocklist sources — one directive per line. '#' begins a comment.
+#
+#   <url>                         fetch a single blocklist
+#   repo <owner/name> [path/]     fetch every .txt in a repo (root-level by default)
+#   whitelist <url>               allowlist, subtracted from the output
+#   whitelist-repo <owner/name> [path/]
+#
+# See docs/superpowers/specs/2026-07-19-combined-blocklist-action-design.md
+
+repo blocklistproject/Lists
