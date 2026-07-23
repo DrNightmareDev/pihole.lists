@@ -24,8 +24,8 @@ for the weekly run.
 
 ## Combined blocklist
 
-- **Total domains:** 4,835,687
-- **Last updated:** 2026-07-20 08:46:53 UTC
+- **Total domains:** 4,911,077
+- **Last updated:** 2026-07-23 06:59:50 UTC
 - **Output files:** 3
 
 ### Subscribe in Pi-hole
